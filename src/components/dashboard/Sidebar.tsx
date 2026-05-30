@@ -1,6 +1,4 @@
 "use client";
-// Client Component — manages collapse state and nav active state
-// layoutId on the highlight enables Framer Motion layout animation
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
@@ -46,15 +44,12 @@ export function Sidebar() {
         collapsed ? "lg:w-16" : "lg:w-[220px]"
       )}
     >
-      {/* ─── HEADER ─── */}
       <div className="flex items-center justify-between p-4 pb-5 min-h-[64px]">
         <div className="flex items-center gap-2.5 overflow-hidden">
-          {/* Logo icon */}
           <div className="w-8 h-8 min-w-8 rounded-lg bg-gradient-to-br from-accent-blue to-accent-purple flex items-center justify-center flex-shrink-0">
             <Layers size={16} strokeWidth={2} color="white" />
           </div>
 
-          {/* Logo text — fades out when collapsed */}
           <AnimatePresence>
             {!collapsed && (
               <motion.span
@@ -70,7 +65,6 @@ export function Sidebar() {
           </AnimatePresence>
         </div>
 
-        {/* Collapse toggle */}
         <button
           onClick={() => setCollapsed((c) => !c)}
           className="hidden h-7 w-7 min-w-7 flex-shrink-0 items-center justify-center rounded-md border border-border-2 bg-bg-2 text-text-2 transition-colors hover:bg-bg-3 hover:text-text-1 lg:flex"
@@ -85,9 +79,7 @@ export function Sidebar() {
         </button>
       </div>
 
-      {/* ─── NAV SECTION ─── */}
       <div className="flex flex-col gap-0.5 px-3 flex-1">
-        {/* Section label */}
         <AnimatePresence>
           {!collapsed && (
             <motion.p
@@ -135,10 +127,8 @@ export function Sidebar() {
         ))}
       </div>
 
-      {/* ─── FOOTER / USER CARD ─── */}
       <div className="p-3 pt-4 border-t border-border mt-auto">
         <div className="flex items-center gap-2.5 px-2 py-2 rounded-xl hover:bg-bg-2 transition-colors cursor-pointer overflow-hidden">
-          {/* Avatar */}
           <div className="w-[34px] h-[34px] min-w-[34px] rounded-full bg-gradient-to-br from-accent-blue to-accent-purple flex items-center justify-center text-white font-display font-bold text-[12px] flex-shrink-0">
             MK
           </div>
@@ -161,8 +151,6 @@ export function Sidebar() {
   );
 }
 
-// ─── NAV ITEM ───
-// layoutId="nav-highlight" makes the background slide between items
 function NavItem({
   item,
   active,
@@ -182,7 +170,6 @@ function NavItem({
         active ? "text-text-1" : "text-text-2 hover:text-text-1"
       )}
     >
-      {/* Animated background highlight — slides using layoutId */}
       {active && (
         <motion.div
           layoutId="nav-highlight"
@@ -191,7 +178,6 @@ function NavItem({
         />
       )}
 
-      {/* Icon */}
       <div
         className={cn(
           "relative w-8 h-8 min-w-8 flex items-center justify-center rounded-lg z-10",
@@ -201,7 +187,6 @@ function NavItem({
         {item.icon}
       </div>
 
-      {/* Label */}
       <AnimatePresence>
         {!collapsed && (
           <motion.span
@@ -216,7 +201,6 @@ function NavItem({
         )}
       </AnimatePresence>
 
-      {/* Badge */}
       <AnimatePresence>
         {!collapsed && item.badge && (
           <motion.span

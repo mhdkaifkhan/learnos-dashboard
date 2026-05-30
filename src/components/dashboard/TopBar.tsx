@@ -1,4 +1,3 @@
-// TopBar — Server Component (no interactivity needed)
 import { Bell, Calendar, Search } from "lucide-react";
 
 export function TopBar() {
@@ -17,19 +16,16 @@ export function TopBar() {
       </div>
 
       <div className="flex items-center gap-2.5">
-        {/* Search */}
         <div className="hidden md:flex items-center gap-2 bg-bg-2 border border-border rounded-xl px-3 py-[7px] text-text-3 text-[13px] w-48 cursor-pointer hover:border-border-2 hover:text-text-2 transition-colors">
           <Search size={14} strokeWidth={2} />
           <span>Search courses…</span>
         </div>
 
-        {/* Notification bell */}
         <div className="relative w-9 h-9 flex items-center justify-center rounded-xl bg-bg-2 border border-border text-text-2 hover:bg-bg-3 hover:text-text-1 transition-colors cursor-pointer">
           <Bell size={17} strokeWidth={1.8} />
           <span className="absolute top-2 right-2 w-1.5 h-1.5 rounded-full bg-accent-blue border-[1.5px] border-bg-2" />
         </div>
 
-        {/* Calendar */}
         <div className="w-9 h-9 flex items-center justify-center rounded-xl bg-bg-2 border border-border text-text-2 hover:bg-bg-3 hover:text-text-1 transition-colors cursor-pointer">
           <Calendar size={17} strokeWidth={1.8} />
         </div>

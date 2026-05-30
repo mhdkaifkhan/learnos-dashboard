@@ -1,5 +1,4 @@
 "use client";
-// HeroTile — Client Component for animated counters
 
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
@@ -22,7 +21,6 @@ const STATS: Stat[] = [
 export function HeroTile() {
   const [stats, setStats] = useState(STATS.map((s) => ({ ...s, current: 0 })));
 
-  // Animate counts on mount
   useEffect(() => {
     const timers: ReturnType<typeof setInterval>[] = [];
 
@@ -55,10 +53,8 @@ export function HeroTile() {
       className="col-span-1 md:col-span-2 lg:col-span-8 lg:row-span-2 relative bg-bg-1 border border-border rounded-2xl p-5 overflow-hidden cursor-pointer"
       whileHover={{ scale: 1.012, y: -2, transition: hoverSpring }}
     >
-      {/* Grain texture */}
       <div className="grain-overlay absolute inset-0 rounded-2xl" />
 
-      {/* Glow orbs — opacity only, no layout effect */}
       <div
         className="absolute rounded-full pointer-events-none"
         style={{
@@ -76,7 +72,6 @@ export function HeroTile() {
         }}
       />
 
-      {/* Glow on hover */}
       <motion.div
         className="absolute inset-0 rounded-2xl pointer-events-none"
         style={{ background: "radial-gradient(ellipse at 80% 20%, rgba(59,130,246,0.08), transparent 60%)" }}
@@ -104,7 +99,6 @@ export function HeroTile() {
           </p>
         </div>
 
-        {/* Stats row */}
         <div className="flex gap-3 flex-wrap mt-5">
           {stats.map((stat, i) => (
             <div

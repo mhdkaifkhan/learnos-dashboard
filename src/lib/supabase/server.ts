@@ -1,7 +1,3 @@
-// lib/supabase/server.ts
-// Server-side Supabase client using @supabase/ssr
-// This runs ONLY on the server — never shipped to the browser
-
 import { createServerClient } from "@supabase/ssr";
 import { cookies } from "next/headers";
 
@@ -15,7 +11,6 @@ export function createClient() {
   const cookieStore = cookies();
 
   return createServerClient(
-    // These env vars come from .env.local — never hardcoded
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
     process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
     {
@@ -29,7 +24,7 @@ export function createClient() {
               cookieStore.set(name, value, options)
             );
           } catch {
-            // Server Component — cookie setting is a no-op here
+            // Cookie writes are not available while rendering a Server Component.
           }
         },
       },

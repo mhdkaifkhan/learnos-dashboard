@@ -3,8 +3,6 @@
 import { motion } from "framer-motion";
 import { tileVariants, hoverSpring } from "./BentoGrid";
 
-// 21 dots = 3 weeks
-// 1 = completed, 0.5 = partial, 0 = missed
 const STREAK_DOTS: (0 | 0.5 | 1)[] = [
   1, 1, 1, 1, 1, 0, 1,
   1, 1, 0, 1, 1, 1, 1,
@@ -22,7 +20,6 @@ export function StreakTile() {
     >
       <div className="grain-overlay absolute inset-0 rounded-2xl" />
 
-      {/* Amber glow on hover */}
       <motion.div
         className="absolute inset-0 rounded-2xl pointer-events-none"
         style={{ background: "radial-gradient(ellipse at 50% 0%, rgba(245,158,11,0.1), transparent 60%)" }}
@@ -31,7 +28,6 @@ export function StreakTile() {
       />
 
       <div className="relative z-10 h-full flex flex-col">
-        {/* Header */}
         <div className="flex items-center justify-between mb-4">
           <span className="text-[11px] font-semibold tracking-widest text-text-3 uppercase">
             Daily Streak
@@ -46,13 +42,11 @@ export function StreakTile() {
           </span>
         </div>
 
-        {/* Big number */}
         <div className="font-display font-extrabold text-[52px] leading-none" style={{ color: "#f59e0b" }}>
           14
         </div>
         <div className="text-[12px] text-text-3 mb-4">days in a row</div>
 
-        {/* Dot grid */}
         <div className="grid grid-cols-7 gap-1.5 mb-2">
           {STREAK_DOTS.map((val, i) => (
             <motion.div
@@ -79,7 +73,6 @@ export function StreakTile() {
           ))}
         </div>
 
-        {/* Week labels */}
         <div className="grid grid-cols-7 gap-1.5">
           {WEEK_LABELS.map((d, i) => (
             <div key={`${d}-${i}`} className="text-[9px] text-text-3 text-center font-medium">
@@ -88,7 +81,6 @@ export function StreakTile() {
           ))}
         </div>
 
-        {/* Decorative fire emoji */}
         <div className="absolute right-4 bottom-4 text-[34px] opacity-30 pointer-events-none select-none">
           🔥
         </div>

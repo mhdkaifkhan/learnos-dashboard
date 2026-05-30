@@ -1,6 +1,4 @@
 "use client";
-// CourseCard — Client Component
-// Receives data fetched server-side, renders animations client-side
 
 import { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
@@ -14,7 +12,6 @@ interface CourseCardProps {
   index: number;
 }
 
-// Dynamically pick Lucide icon by name from Supabase icon_name field
 function DynamicIcon({
   name,
   size = 20,
@@ -24,18 +21,15 @@ function DynamicIcon({
   size?: number;
   color: string;
 }) {
-  // LucideIcons is a namespace — look up icon by name
   const IconComponent = (icons as Record<string, LucideIcon>)[name];
 
   if (!IconComponent) {
-    // Fallback icon if name doesn't match
     return <BookOpen size={size} color={color} strokeWidth={1.8} />;
   }
 
   return <IconComponent size={size} color={color} strokeWidth={1.8} />;
 }
 
-// col-span assignments based on index (4 courses across 12 cols)
 const COL_SPANS = [
   "lg:col-span-4",
   "lg:col-span-4",
@@ -49,7 +43,6 @@ export function CourseCard({ course, index }: CourseCardProps) {
   const [progressWidth, setProgressWidth] = useState(0);
   const hasAnimated = useRef(false);
 
-  // Animate progress bar from 0 → target on first render
   useEffect(() => {
     if (hasAnimated.current) return;
     hasAnimated.current = true;
@@ -67,10 +60,8 @@ export function CourseCard({ course, index }: CourseCardProps) {
       className={`col-span-1 ${colSpan} relative bg-bg-1 border border-border rounded-2xl p-5 overflow-hidden cursor-pointer flex flex-col`}
       whileHover={{ scale: 1.015, y: -2, transition: hoverSpring }}
     >
-      {/* Grain texture */}
       <div className="grain-overlay absolute inset-0 rounded-2xl" />
 
-      {/* Subtle gradient mesh background */}
       <div
         className="absolute inset-0 rounded-2xl pointer-events-none"
         style={{
@@ -78,7 +69,6 @@ export function CourseCard({ course, index }: CourseCardProps) {
         }}
       />
 
-      {/* Glow border on hover */}
       <motion.div
         className="absolute inset-0 rounded-2xl pointer-events-none"
         style={{
@@ -89,15 +79,12 @@ export function CourseCard({ course, index }: CourseCardProps) {
         transition={{ duration: 0.2 }}
       />
 
-      {/* Content */}
       <div className="relative z-10 flex flex-col h-full">
-        {/* Header: icon + title */}
         <header className="flex items-start gap-3 mb-4">
           <div
             className="w-[38px] h-[38px] min-w-[38px] rounded-[10px] flex items-center justify-center flex-shrink-0"
             style={{ background: colorConfig.iconBg }}
           >
-            {/* Icon name comes from Supabase icon_name field */}
             <DynamicIcon name={course.icon_name} color={colorConfig.color} />
           </div>
           <div>
@@ -108,7 +95,6 @@ export function CourseCard({ course, index }: CourseCardProps) {
           </div>
         </header>
 
-        {/* Progress section — pushed to bottom */}
         <section className="mt-auto">
           <div className="flex items-center justify-between mb-1.5">
             <span className="text-[11px] text-text-3">Progress</span>
@@ -120,7 +106,6 @@ export function CourseCard({ course, index }: CourseCardProps) {
             </span>
           </div>
 
-          {/* Animated progress bar — uses CSS transition, not layout property */}
           <div className="h-[5px] bg-bg-3 rounded-full overflow-hidden">
             <div
               className="h-full w-full origin-left rounded-full"

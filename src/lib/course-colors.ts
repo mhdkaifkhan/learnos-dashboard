@@ -1,4 +1,3 @@
-// Shared presentation values. Keep this module browser-safe for CourseCard.
 export const COURSE_COLORS = [
   {
     color: "#3b82f6",

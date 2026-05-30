@@ -4,12 +4,10 @@ import { useMemo } from "react";
 import { motion } from "framer-motion";
 import { tileVariants, hoverSpring } from "./BentoGrid";
 
-// Generate mock contribution data (6 months = ~182 days)
 function generateActivityData(): number[] {
-  // Seeded so it looks consistent across renders
   const data: number[] = [];
   for (let i = 0; i < 182; i++) {
-    const r = Math.sin(i * 137.508) * 0.5 + 0.5; // deterministic pseudo-random
+    const r = Math.sin(i * 137.508) * 0.5 + 0.5;
     const level = r < 0.38 ? 0 : r < 0.58 ? 1 : r < 0.74 ? 2 : r < 0.87 ? 3 : 4;
     data.push(level);
   }
@@ -43,7 +41,6 @@ export function ActivityTile() {
     >
       <div className="grain-overlay absolute inset-0 rounded-2xl" />
 
-      {/* Teal glow on hover */}
       <motion.div
         className="absolute inset-0 rounded-2xl pointer-events-none"
         style={{ background: "radial-gradient(ellipse at 50% 100%, rgba(20,184,166,0.08), transparent 60%)" }}
@@ -52,7 +49,6 @@ export function ActivityTile() {
       />
 
       <div className="relative z-10">
-        {/* Header */}
         <div className="flex items-center justify-between mb-4">
           <span className="text-[12px] font-semibold tracking-widest text-text-3 uppercase">
             Learning Activity
@@ -60,7 +56,6 @@ export function ActivityTile() {
           <span className="text-[12px] text-text-3">Last 6 months</span>
         </div>
 
-        {/* Contribution grid — 26 cols × 7 rows */}
         <div className="overflow-x-auto pb-1">
           <div
             className="grid min-w-[520px] gap-[3px]"
@@ -80,7 +75,6 @@ export function ActivityTile() {
           </div>
         </div>
 
-        {/* Legend */}
         <div className="flex items-center gap-1.5 mt-2 justify-end">
           <span className="text-[10px] text-text-3">Less</span>
           {CELL_COLORS.map((color, i) => (

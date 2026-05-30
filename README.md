@@ -1,30 +1,39 @@
-# LearnOS - Next-Gen Learning Dashboard
+# LearnOS Dashboard
 
-A responsive student dashboard built with Next.js App Router, Supabase, Tailwind CSS, Framer Motion, Lucide React, and TypeScript.
+A responsive student dashboard built with Next.js, Supabase, Tailwind CSS, and Framer Motion.
 
-## Live Demo
+## Demo
 
-[View the deployed dashboard](https://learnos-dashboard-kohl.vercel.app/dashboard)
+[Live dashboard](https://learnos-dashboard-kohl.vercel.app/dashboard)
 
-## Architecture
+## Overview
 
-`src/app/dashboard/page.tsx` is a React Server Component. Its nested async `CourseTiles` component fetches courses from Supabase through `src/lib/data.ts`, then passes each database row to the client-side `CourseCard` component for animation.
+The dashboard includes a collapsible sidebar, course progress cards, a streak view, and a six-month activity chart. Course cards are loaded from Supabase; the remaining dashboard stats are sample values for the prototype.
 
-This keeps database fetching on the server while preserving interactive motion in the browser. A Suspense boundary shows pulsing skeleton cards while course data loads. `src/app/dashboard/error.tsx` provides a route-level retry state if the database connection fails.
+The `/dashboard` page is a Server Component. It fetches courses through `src/lib/data.ts` and renders the results inside a Suspense boundary. The course cards stay client-side because their progress bars and hover states are animated. Database failures are handled by `src/app/dashboard/error.tsx`.
 
-## Responsive Layout
+The layout changes at smaller breakpoints:
 
-- Desktop: full sidebar and a 12-column Bento grid.
-- Tablet: icon-only sidebar and a 2-column Bento grid.
-- Mobile: fixed bottom navigation and a single-column scrolling layout.
+- Desktop uses the full sidebar and 12-column grid.
+- Tablet uses an icon-only sidebar and 2-column grid.
+- Mobile switches to bottom navigation and a single-column layout.
 
-## Animation Strategy
+## Local Setup
 
-Framer Motion handles staggered tile entrances, spring-based hover elevation, and `layoutId` navigation highlights. Entrance, hover, and progress animations use transform and opacity to avoid layout shifts. Course progress bars animate from zero to the fetched database value with `scaleX`.
+Install dependencies:
 
-## Supabase Setup
+```bash
+npm install
+```
 
-Create a Supabase project and run:
+Create `.env.local` from `.env.example` and add the Supabase project URL and publishable key:
+
+```env
+NEXT_PUBLIC_SUPABASE_URL=https://your-project-ref.supabase.co
+NEXT_PUBLIC_SUPABASE_ANON_KEY=your-anon-key-here
+```
+
+Create and seed the courses table in Supabase:
 
 ```sql
 create table public.courses (
@@ -45,30 +54,14 @@ alter table public.courses enable row level security;
 create policy "Allow public read" on public.courses for select using (true);
 ```
 
-Copy `.env.example` to `.env.local` and add the Supabase project values:
-
-```env
-NEXT_PUBLIC_SUPABASE_URL=https://your-project-ref.supabase.co
-NEXT_PUBLIC_SUPABASE_ANON_KEY=your-anon-key-here
-```
-
-Never commit `.env.local`.
-
-## Local Development
+Start the development server:
 
 ```bash
-npm install
 npm run dev
 ```
 
-Open `http://localhost:3000`.
+## Notes
 
-## Deployment
-
-Push the project to a public GitHub repository, import it into Vercel, and configure the same two Supabase environment variables in the Vercel dashboard.
-
-## Challenges Addressed
-
-- Lucide icons are resolved dynamically from each database row's `icon_name`, with a fallback icon for invalid names.
-- Async Supabase loading is isolated behind a Suspense boundary with animated placeholders.
-- Navigation adapts across desktop, tablet, and mobile layouts without layout-changing motion.
+- Lucide icons are selected from each course row's `icon_name`. Invalid names fall back to a book icon.
+- Tile entrances use a staggered Framer Motion animation.
+- Hover states and progress fills use transforms to avoid layout shifts.

@@ -1,5 +1,4 @@
 "use client";
-// Client Component — needed for Framer Motion animations
 
 import { motion } from "framer-motion";
 
@@ -7,7 +6,6 @@ interface BentoGridProps {
   children: React.ReactNode;
 }
 
-// Stagger container — children animate in sequentially
 const containerVariants = {
   hidden: {},
   visible: {
@@ -31,8 +29,6 @@ export function BentoGrid({ children }: BentoGridProps) {
   );
 }
 
-// Reusable tile motion wrapper — used by every Bento tile
-// Uses transform + opacity ONLY (no layout shifts)
 export const tileVariants = {
   hidden: {
     opacity: 0,
@@ -49,7 +45,6 @@ export const tileVariants = {
   },
 };
 
-// Hover spring config — same spec as required
 export const hoverSpring = {
   type: "spring" as const,
   stiffness: 300,
