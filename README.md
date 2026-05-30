@@ -4,7 +4,7 @@ A responsive student dashboard built with Next.js App Router, Supabase, Tailwind
 
 ## Live Demo
 
-Add the production Vercel URL here after deployment.
+[View the deployed dashboard](https://learnos-dashboard-kohl.vercel.app/dashboard)
 
 ## Architecture
 
